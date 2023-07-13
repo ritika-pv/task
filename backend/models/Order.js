@@ -1,15 +1,14 @@
 const mongoose = require('mongoose');
 
 const orderSchema = new mongoose.Schema({
-  orderId: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: true,
-  },
-  petId: {
+  petId:[ {
+    type:  mongoose.Schema.Types.ObjectId,
+    ref: "Pet",
+  }],
+  quantity: {
     type: Number,
-    required: true,
+    default:1
   },
-  
   shipDate: {
     type: Date,
     default:Date.now() + 7*24*60*60*1000
@@ -17,7 +16,7 @@ const orderSchema = new mongoose.Schema({
   status: {
     type: String,
     enum: ['placed', 'approved', 'delivered'],
-    required: true,
+    default:'placed'
   },
   complete: {
     type: Boolean,
