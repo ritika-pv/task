@@ -24,6 +24,9 @@ exports.deletePet = async (req, res) => {
     const { petId } = req.params;
 
     try {
+        if (!mongoose.Types.ObjectId.isValid(petId)) {
+            return res.status(400).json({ error: 'Invalid order ID  (enter correct   "TYPE"  of petId)' });
+        }
         const pet = await Pet.findById(petId);
         if (!pet) {
             return res.status(404).json({ message: 'Pet not found' });
